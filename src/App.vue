@@ -7,9 +7,9 @@
       <router-link to="/register" v-if="!userStore.userData">Requister</router-link>
       <button @click="userStore.logoutUser" v-if="userStore.userData">Logout</button>
     </nav>
-    <dir v-else>
+    <div v-else>
       Loading...
-    </dir>
+    </div>
     <RouterView></RouterView>
   </div>
 </template>
