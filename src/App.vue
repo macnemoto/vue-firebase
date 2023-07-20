@@ -1,18 +1,22 @@
 <template>
   <div>
     <h1>app neko</h1>
-    <nav>
-      <router-link to="/">Home</router-link>
-      <router-link to="/login">Login</router-link>
-      <router-link to="/register">Requister</router-link>
-      <button>Logout</button>
+    <nav v-if="!userStore.loadingSession">
+      <router-link to="/" v-if="userStore.userData">Home</router-link>
+      <router-link to="/login" v-if="!userStore.userData">Login</router-link>
+      <router-link to="/register" v-if="!userStore.userData">Requister</router-link>
+      <button @click="userStore.logoutUser" v-if="userStore.userData">Logout</button>
     </nav>
+    <dir v-else>
+      Loading...
+    </dir>
     <RouterView></RouterView>
   </div>
 </template>
 
 <script setup>
-
+import { useUserStore } from './stores/user'
+const userStore = useUserStore()
 </script>
 
 <style lang="scss" scoped></style>
