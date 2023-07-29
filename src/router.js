@@ -2,26 +2,31 @@ import { createRouter, createWebHistory } from "vue-router";
 import { useUserStore } from "./stores/user";
 
 import Home from "./views/Home.vue";
+import Edit from "./views/Edit.vue";
 import Login from "./views/login.vue";
 import Register from "./views/Register.vue";
 
 const requireAuth = async (to, from, next) => {
   const userStore = useUserStore();
-  userStore.loadingSession = true
+  userStore.loadingSession = true;
   const user = await userStore.currentUser();
   if (user) {
     next();
   } else {
     next("login");
   }
-  userStore.loadingSession = false
-
+  userStore.loadingSession = false;
 };
 
 const routes = [
   {
     path: "/",
     component: Home,
+    beforeEnter: requireAuth,
+  },
+  {
+    path: "/edit/:id",
+    component: Edit,
     beforeEnter: requireAuth,
   },
   { path: "/login", component: Login },
