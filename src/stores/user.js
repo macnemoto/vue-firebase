@@ -21,7 +21,7 @@ export const useUserStore = defineStore("userStore", {
     },
   },
   actions: {
-    async refisterUser(email, password) {
+    async registerUser(email, password) {
       this.loadingUser = true;
       try {
         const { user } = await createUserWithEmailAndPassword(
@@ -32,7 +32,9 @@ export const useUserStore = defineStore("userStore", {
         console.log(user);
         this.userData = { email: user.email, uid: user.uid };
         router.push("/");
-      } catch (error) {
+      } catch (error){
+        console.log(error.code);
+        return error.code
       } finally {
         this.loadingUser = false;
       }
@@ -44,7 +46,8 @@ export const useUserStore = defineStore("userStore", {
         this.userData = { email: user.email, uid: user.uid };
         router.push("/");
       } catch (error) {
-        console.log(error);
+        console.log(error.code);
+        return error.code
       } finally {
         this.loadingUser = false;
       }

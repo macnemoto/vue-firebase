@@ -19,6 +19,7 @@ export const useDatabaseStore = defineStore("database", {
   state: () => ({
     documents: [],
     loadingDoc: false,
+    loading: false
   }),
   actions: {
     async getUrls() {
@@ -52,6 +53,7 @@ export const useDatabaseStore = defineStore("database", {
         short: nanoid(6),
         user: auth.currentUser.uid,
       };
+      this.loading = true
       try {
         const docRef = await addDoc(collection(db, "urls"), objetoDoc);
         this.documents.push({
@@ -59,7 +61,11 @@ export const useDatabaseStore = defineStore("database", {
           id: docRef.id,
         });
       } catch (error) {
-        console.log(error);
+        console.log(error.code);
+        return error.code
+      } finally{
+        this.loading = false
+
       }
     },
     async leerUrl(id) {

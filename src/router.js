@@ -23,14 +23,16 @@ const routes = [
     path: "/",
     component: Home,
     beforeEnter: requireAuth,
+    name: "home",
   },
   {
     path: "/edit/:id",
     component: Edit,
     beforeEnter: requireAuth,
+    name: "edit",
   },
-  { path: "/login", component: Login },
-  { path: "/register", component: Register },
+  { path: "/login", component: Login, name: "login" },
+  { path: "/register", component: Register, name: "register" },
 ];
 
 const router = createRouter({
