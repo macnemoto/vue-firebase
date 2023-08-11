@@ -2,7 +2,7 @@
     <a-row>
         <a-col :xs="{ span: 24 }" :sm="{ span: 12, offset: 6 }">
 
-            <h1>Login</h1>
+            <h1 class="text-center">Login</h1>
             <a-form name="basic" autocomplete="off" layout="vertical" :model="formState" @finish="onFinish"
                 @finishFailed="onFinishFailed">
                 <a-form-item name="email" label="Ingresa Tu correo"

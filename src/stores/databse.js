@@ -87,6 +87,7 @@ export const useDatabaseStore = defineStore("database", {
       }
     },
     async updateUrl(id, name) {
+      this.loading = true
       try {
         const docRef = doc(db, "urls", id);
         const docSpan = await getDoc(docRef);
@@ -106,10 +107,13 @@ export const useDatabaseStore = defineStore("database", {
         router.push("/");
       } catch (error) {
         console.log(error.message);
+        return error.message
       } finally {
+      this.loading = false
       }
     },
     async deleteUrl(id) {
+      this.loading = true
       try {
         const docRef = doc(db, "urls", id);
         const docSpan = await getDoc(docRef);
@@ -124,8 +128,10 @@ export const useDatabaseStore = defineStore("database", {
 
         await deleteDoc(docRef);
       } catch (error) {
-        console.log(error.message);
+        return console.log(error.message)
       } finally {
+      this.loading = false
+
       }
     },
   },
