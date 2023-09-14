@@ -5,6 +5,7 @@ import Home from "./views/Home.vue";
 import Edit from "./views/Edit.vue";
 import Login from "./views/login.vue";
 import Register from "./views/Register.vue";
+import Profile from "./views/Profile.vue";
 
 const requireAuth = async (to, from, next) => {
   const userStore = useUserStore();
@@ -13,7 +14,7 @@ const requireAuth = async (to, from, next) => {
   if (user) {
     next();
   } else {
-    next("login");
+    next("/login");
   }
   userStore.loadingSession = false;
 };
@@ -24,6 +25,11 @@ const routes = [
     component: Home,
     beforeEnter: requireAuth,
     name: "home",
+  }, {
+    path: "/Profile",
+    component: Profile,
+    beforeEnter: requireAuth,
+    name: "profile",
   },
   {
     path: "/edit/:id",
